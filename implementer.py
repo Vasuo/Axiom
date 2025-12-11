@@ -1,9 +1,11 @@
 """
 Модуль исполнителя - генерирует код по конкретным задачам
 """
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 from ollama_client import OllamaClient
 from config import AgentConfig
+from datetime import datetime
+import json
 
 class Implementer:
     def __init__(self):
@@ -11,7 +13,7 @@ class Implementer:
         self.ollama = OllamaClient(model=self.config.IMPLEMENTER_MODEL)
         
     def implement_step(self, 
-                      step: Dict[str, any], 
+                      step: Dict[str, Any], 
                       project_snapshot: Dict[str, str],
                       step_number: int,
                       total_steps: int) -> Optional[str]:
@@ -30,6 +32,9 @@ class Implementer:
         # Формируем промпт для исполнителя
         prompt = self._build_implementer_prompt(step, project_snapshot, step_number, total_steps)
         
+        # Логируем запрос
+        self._log_request("implementer", step["file"], prompt[:500] + "...")
+        
         # Отправляем запрос
         response = self.ollama.generate_response(
             messages=[
@@ -39,6 +44,9 @@ class Implementer:
             format_json=False  # Исполнитель возвращает чистый код
         )
         
+        if response:
+            self._log_response("implementer", step["file"], response[:500] + "...")
+        
         if not response:
             return None
             
@@ -46,7 +54,7 @@ class Implementer:
         return self._validate_code_response(response, step["file"])
     
     def _build_implementer_prompt(self, 
-                                 step: Dict[str, any], 
+                                 step: Dict[str, Any], 
                                  snapshot: Dict[str, str],
                                  step_number: int,
                                  total_steps: int) -> str:
@@ -158,3 +166,33 @@ class Implementer:
             return text.strip()
         
         return result
+    
+    def _log_request(self, agent_type: str, filename: str, prompt_preview: str):
+        """Логирует запрос к ИИ"""
+        try:
+            log_entry = {
+                "timestamp": datetime.now().isoformat(),
+                "type": f"{agent_type}_request",
+                "filename": filename,
+                "prompt_preview": prompt_preview
+            }
+            
+            with open(self.config.DETAILED_LOG_FILE, 'a', encoding='utf-8') as f:
+                f.write(json.dumps(log_entry, ensure_ascii=False) + '\n')
+        except Exception as e:
+            print(f"⚠️ Ошибка логирования запроса: {e}")
+    
+    def _log_response(self, agent_type: str, filename: str, response_preview: str):
+        """Логирует ответ от ИИ"""
+        try:
+            log_entry = {
+                "timestamp": datetime.now().isoformat(),
+                "type": f"{agent_type}_response",
+                "filename": filename,
+                "response_preview": response_preview
+            }
+            
+            with open(self.config.DETAILED_LOG_FILE, 'a', encoding='utf-8') as f:
+                f.write(json.dumps(log_entry, ensure_ascii=False) + '\n')
+        except Exception as e:
+            print(f"⚠️ Ошибка логирования ответа: {e}")
