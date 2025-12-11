@@ -4,8 +4,9 @@
 import os
 import shutil
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 import traceback
+from datetime import datetime  # ДОБАВЛЕНО
 
 class Executor:
     def __init__(self, project_root: str = "."):
@@ -22,15 +23,8 @@ class Executor:
             if not filepath.exists():
                 return True
                 
-            backup_path = self.backup_dir / f"{filepath.name}.backup"
-            # Сохраняем до 5 бэкапов
-            if backup_path.exists():
-                for i in range(4, 0, -1):
-                    old_backup = self.backup_dir / f"{filepath.name}.backup.{i}"
-                    new_backup = self.backup_dir / f"{filepath.name}.backup.{i+1}"
-                    if old_backup.exists():
-                        shutil.copy2(old_backup, new_backup)
-                shutil.copy2(backup_path, self.backup_dir / f"{filepath.name}.backup.1")
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_path = self.backup_dir / f"{filepath.name}.{timestamp}.backup"
             
             shutil.copy2(filepath, backup_path)
             return True
@@ -41,12 +35,6 @@ class Executor:
     def apply_changes(self, file_changes: Dict[str, Any]) -> Dict[str, str]:
         """
         Применяет изменения к файлам проекта
-        
-        Args:
-            file_changes: Словарь {путь_к_файлу: содержимое_или_None}
-            
-        Returns:
-            Словарь с результатами операций
         """
         self.ensure_backup_dir()
         results = {}
@@ -57,7 +45,7 @@ class Executor:
             try:
                 # Проверяем, что файл находится внутри проекта
                 if not str(file_path).startswith(str(self.project_root)):
-                    results[file_path_str] = f"ERROR: Файл вне проекта: {file_path}"
+                    results[file_path_str] = f"ERROR: Файл вне проекта"
                     continue
                 
                 # Создание директории если нужно
@@ -69,18 +57,21 @@ class Executor:
                         self.backup_file(file_path)
                         file_path.unlink()
                         results[file_path_str] = "DELETED"
-                        print(f"🗑️  Удален файл: {file_path_str}")
                     else:
                         results[file_path_str] = "SKIP: Файл не существует"
-                        print(f"⚠️  Файл не существует: {file_path_str}")
                 
                 # Создание/изменение файла
                 else:
+                    # ВАЖНО: Проверяем что content - строка
+                    if not isinstance(content, str):
+                        results[file_path_str] = f"ERROR: Неподдерживаемый тип {type(content)}"
+                        continue
+                    
                     self.backup_file(file_path)
                     
                     # Запись с использованием временного файла
                     temp_file = file_path.with_suffix(file_path.suffix + '.tmp')
-                    with open(temp_file, 'w', encoding='utf-8') as f:
+                    with open(temp_file, 'w', encoding='utf-8', errors='replace') as f:
                         f.write(content)
                         f.flush()
                     
@@ -89,30 +80,31 @@ class Executor:
                         file_path.unlink()
                     temp_file.rename(file_path)
                     
-                    results[file_path_str] = "UPDATED"
-                    print(f"✅ Обновлен файл: {file_path_str} ({len(content)} символов)")
+                    results[file_path_str] = f"✅ UPDATED ({len(content)} символов)"
                     
             except PermissionError:
                 results[file_path_str] = "ERROR: Нет прав доступа"
-                print(f"❌ Нет прав доступа: {file_path_str}")
             except Exception as e:
                 results[file_path_str] = f"ERROR: {str(e)}"
-                print(f"❌ Ошибка файла {file_path_str}: {e}")
                 traceback.print_exc()
         
         return results
     
-    def validate_file_changes(self, file_changes: Dict[str, Any]) -> tuple[bool, str]:
+    def validate_file_changes(self, file_changes: Dict[str, Any]) -> Tuple[bool, str]:
         """Проверяет валидность изменений перед применением"""
-        for file_path_str in file_changes.keys():
+        for file_path_str, content in file_changes.items():
             file_path = Path(file_path_str)
             
             # Проверка расширения
-            if file_path.suffix not in ['.py', '.json', '.txt', '.md', '.yml', '.yaml', '']:
+            if file_path.suffix and file_path.suffix not in ['.py', '.json', '.txt', '.md', '.yml', '.yaml']:
                 return False, f"Неподдерживаемое расширение: {file_path_str}"
             
             # Проверка на опасные пути
             if '..' in file_path_str or file_path_str.startswith('/'):
                 return False, f"Опасный путь: {file_path_str}"
+            
+            # Проверка типа контента
+            if content is not None and not isinstance(content, str):
+                return False, f"Контент должен быть строкой, а не {type(content)}"
         
         return True, "OK"

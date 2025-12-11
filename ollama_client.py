@@ -3,47 +3,47 @@
 """
 import json
 import requests
-from typing import Dict, Any, Optional
-from config import AgentConfig
+from typing import Dict, Any, Optional, List
 import time
 
 class OllamaClient:
-    def __init__(self, base_url: str = "http://localhost:11434"):
+    def __init__(self, 
+                 base_url: str = "http://localhost:11434",
+                 model: str = "llama3.1:8b"):
         self.base_url = base_url
-        self.model = AgentConfig.MODEL_NAME
-        self.timeout = 30
+        self.model = model
+        self.timeout = 60  # Увеличиваем для сложных задач
         
-    def check_connection(self) -> bool:
-        """Проверяет подключение к Ollama"""
-        try:
-            response = requests.get(f"{self.base_url}/api/tags", timeout=5)
-            return response.status_code == 200
-        except requests.exceptions.ConnectionError:
-            return False
-    
-    def generate_response(self, messages: list) -> Optional[Dict[str, Any]]:
+    def generate_response(self, 
+                         messages: list,
+                         format_json: bool = True,
+                         temperature: float = 0.1) -> Optional[Any]:
         """
-        Отправляет запрос к Ollama и получает ответ
+        Отправляет запрос к Ollama
         
         Args:
-            messages: Список сообщений в формате [{"role": "system/user", "content": "..."}]
-        
+            messages: Список сообщений
+            format_json: Требовать ли JSON ответ
+            temperature: Креативность
+            
         Returns:
-            Ответ в формате JSON или None в случае ошибки
+            Ответ (JSON или текст)
         """
         try:
             payload = {
                 "model": self.model,
                 "messages": messages,
                 "stream": False,
-                "format": "json",  # Форсируем JSON ответ
                 "options": {
-                    "temperature": AgentConfig.TEMPERATURE,
-                    "num_predict": AgentConfig.MAX_TOKENS
+                    "temperature": temperature,
+                    "num_predict": 4096
                 }
             }
             
-            print(f"🤖 Отправка запроса к модели {self.model}...")
+            if format_json:
+                payload["format"] = "json"
+            
+            print(f"🤖 [{self.model}] Отправка запроса...")
             start_time = time.time()
             
             response = requests.post(
@@ -57,31 +57,36 @@ class OllamaClient:
             
             if response.status_code == 200:
                 result = response.json()
-                content = result.get("message", {}).get("content", "{}")
+                content = result.get("message", {}).get("content", "")
                 
-                try:
-                    return json.loads(content)
-                except json.JSONDecodeError as e:
-                    print(f"❌ Ошибка парсинга JSON: {e}")
-                    print(f"Ответ: {content[:200]}...")
-                    return None
+                if format_json:
+                    try:
+                        return json.loads(content)
+                    except json.JSONDecodeError:
+                        print(f"❌ Не удалось распарсить JSON: {content[:200]}...")
+                        return None
+                else:
+                    return content.strip()
             else:
                 print(f"❌ Ошибка API: {response.status_code}")
-                print(response.text)
                 return None
                 
         except requests.exceptions.Timeout:
-            print("❌ Таймаут запроса к Ollama")
-            return None
-        except requests.exceptions.ConnectionError:
-            print("❌ Не удалось подключиться к Ollama")
-            print(f"Убедитесь, что Ollama запущен на {self.base_url}")
+            print(f"❌ Таймаут запроса к {self.model}")
             return None
         except Exception as e:
-            print(f"❌ Неожиданная ошибка: {e}")
+            print(f"❌ Ошибка: {e}")
             return None
     
-    def list_models(self) -> list:
+    def check_connection(self) -> bool:
+        """Проверяет подключение к Ollama"""
+        try:
+            response = requests.get(f"{self.base_url}/api/tags", timeout=5)
+            return response.status_code == 200
+        except:
+            return False
+    
+    def list_models(self) -> List[str]:
         """Получает список доступных моделей"""
         try:
             response = requests.get(f"{self.base_url}/api/tags")
