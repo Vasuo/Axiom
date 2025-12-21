@@ -1,0 +1,27 @@
+{
+  "task_id": "task_20251219_004520_9d0f3066",
+  "original_task": "Создай окно PyGame размером 800x600 с синим фоном",
+  "created_at": "2025-12-19T00:45:20.704754",
+  "updated_at": "2025-12-19T00:45:20.704758",
+  "task_status": "coding",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame, создание окна и основного цикла:",
+    "Определение цвета и рисование фона:",
+    "Обработка событий для выхода из игры:",
+    "Добавление элементов управления (например, кнопки для выхода):",
+    "Обработка нажатия кнопки для выхода:"
+  ],
+  "current_subtask_index": 0,
+  "current_subtask": "Инициализация PyGame, создание окна и основного цикла:",
+  "code_chunks": [],
+  "generated_code": "",
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

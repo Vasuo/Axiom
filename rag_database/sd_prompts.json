@@ -1,0 +1,102 @@
+[
+  {
+    "id": "sd_skeleton",
+    "text": "skeleton, bones, monster, white bones on black background, simple 2D game sprite, front view, clean lines, no details, cartoon style",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["enemy", "monster", "simple", "bones"],
+      "type": "enemy_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_barrel",
+    "text": "wooden barrel, brown, simple cylinder, game asset, front view, clean lines, cartoon style, no texture details",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["item", "obstacle", "simple", "barrel"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_sword",
+    "text": "sword, weapon, silver blade, simple shape, front view, clean lines, game asset, no details, cartoon style",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["weapon", "item", "simple", "sword"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_potion",
+    "text": "potion bottle, green liquid, glass bottle, simple shape, front view, clean lines, game asset, cartoon style",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["item", "potion", "simple", "bottle"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_chest",
+    "text": "treasure chest, wooden box, simple rectangle, front view, clean lines, game asset, cartoon style, brown color",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["item", "chest", "simple", "box"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_slime",
+    "text": "slime monster, green blob, simple round shape, front view, clean lines, game enemy, cartoon style, transparent",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["enemy", "monster", "simple", "slime"],
+      "type": "enemy_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_key",
+    "text": "key, metal, simple shape, front view, clean lines, game item, cartoon style, golden color",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["item", "key", "simple", "metal"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_ghost",
+    "text": "ghost, white, simple round shape with wavy bottom, front view, clean lines, game enemy, cartoon style, transparent",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["enemy", "monster", "simple", "ghost"],
+      "type": "enemy_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_coin",
+    "text": "coin, gold, simple circle, front view, clean lines, game item, cartoon style, shiny",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["item", "coin", "simple", "money"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  },
+  {
+    "id": "sd_heart",
+    "text": "heart, red, health item, simple heart shape, front view, clean lines, game item, cartoon style",
+    "metadata": {
+      "category": "sd_prompts",
+      "tags": ["item", "heart", "simple", "health"],
+      "type": "item_sprite",
+      "complexity": "low"
+    }
+  }
+]

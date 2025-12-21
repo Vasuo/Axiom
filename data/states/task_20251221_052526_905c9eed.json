@@ -1,0 +1,395 @@
+{
+  "task_id": "task_20251221_052526_905c9eed",
+  "original_task": "Создай упрощенную змейку",
+  "created_at": "2025-12-21T05:25:26.776066",
+  "updated_at": "2025-12-21T05:37:12.375972",
+  "task_status": "completed",
+  "validation_status": "passed",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 400x400",
+    "Создание игрового поля (сетка 20x20 клеток)",
+    "Реализовать змейку как список координат сегментов",
+    "Координаты будут представлять собой пары (x, y) для каждого сегмента",
+    "Задать начальное направление движения (вправо)",
+    "Генерация еду в случайной позиции",
+    "Основная логика:"
+  ],
+  "current_subtask_index": 6,
+  "current_subtask": "Основная логика:",
+  "metadata": {},
+  "code_chunks": [],
+  "generated_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+  "current_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+  "code_history": [
+    {
+      "timestamp": "2025-12-21T05:26:12.500333",
+      "subtask": "Инициализация PyGame и создание окна 400x400",
+      "previous_code": "",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 400\nHEIGHT = 400\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T05:27:44.884103",
+      "subtask": "Создание игрового поля (сетка 20x20 клеток)",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 400\nHEIGHT = 400\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T05:30:26.933867",
+      "subtask": "Реализовать змейку как список координат сегментов",
+      "previous_code": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "new_code": "import pygame\nfrom physics_template import PhysicsEntity\n\nclass Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T05:32:16.898018",
+      "subtask": "Координаты будут представлять собой пары (x, y) для каждого сегмента",
+      "previous_code": "import pygame\nfrom physics_template import PhysicsEntity\n\nclass Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "new_code": "class Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T05:33:48.460673",
+      "subtask": "Задать начальное направление движения (вправо)",
+      "previous_code": "class Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "new_code": "class Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.start_direction = 1 # Начальное направление движения (вправо)\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T05:35:32.896913",
+      "subtask": "Генерация еду в случайной позиции",
+      "previous_code": "class Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.start_direction = 1 # Начальное направление движения (вправо)\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "new_code": "class Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.start_direction = 1 # Начальное направление движения (вправо)\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T05:37:12.374968",
+      "subtask": "Основная логика:",
+      "previous_code": "class Snake(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.segments = []\n        self.direction = 1 # 1 - вправо, -1 - влево\n        self.start_direction = 1 # Начальное направление движения (вправо)\n        self.food_position = None\n    \n    def update(self, dt):\n        # Обновляем направление движения змеи на основе текущего направления и времени прохождения\n        if self.direction == 1:\n            self.x += dt * self.vel_x\n        else:\n            self.x -= dt * self.vel_x\n    \n    def draw(self, screen):\n        # Отрисовываем змею на основе списка координат сегментов\n        for segment in self.segments:\n            pygame.draw.rect(screen, (0, 255, 0), pygame.Rect(segment[0], segment[1], 10, 10))\n    \n    def handle_events(self, event):\n        # Обрабатываем события клавиатуры для управления змеей\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_LEFT:\n                self.direction = -1\n            elif event.key == pygame.K_RIGHT:\n                self.direction = 1\n    \n    def generate_food(self):\n        # Генерируем еду в случайной позиции на игровом поле\n        self.food_position = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 400\nHEIGHT = 400\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:26:12.500333",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 400\nHEIGHT = 400\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:26:12.501336",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 400\nHEIGHT = 400\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:26:12.501336",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 400\nHEIGHT = 400\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:26:12.501336",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "timestamp": "2025-12-21T05:27:44.884103",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_import",
+      "description": "Missing pygame import",
+      "code_context": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "timestamp": "2025-12-21T05:27:44.885106",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "timestamp": "2025-12-21T05:27:44.885106",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "timestamp": "2025-12-21T05:27:44.885106",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)",
+      "timestamp": "2025-12-21T05:27:44.886108",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "timestamp": "2025-12-21T05:30:26.935875",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "timestamp": "2025-12-21T05:30:26.935875",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "timestamp": "2025-12-21T05:30:26.936878",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "timestamp": "2025-12-21T05:30:26.937864",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "eat_food()\n    \nclass GameField:\n    def __init__(self, width=400, height=400):\n        self.width = width\n        self.height = height\n        self.grid = [[Cell(x, y) for x in range(self.width)] for y in range(self.height)]\n    \n    def draw(self, screen):\n        for row in self.grid:\n            for cell in row:\n                cell.draw(screen)\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.snake.update_snake(dt)",
+      "timestamp": "2025-12-21T05:30:26.937864",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.900023",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_import",
+      "description": "Missing pygame import",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.900023",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.901025",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.901025",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.902028",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.902028",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "name_error",
+      "description": "Undefined variable or function",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:32:16.902028",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.461691",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_import",
+      "description": "Missing pygame import",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.462677",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.487816",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.488765",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.489760",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.489760",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "name_error",
+      "description": "Undefined variable or function",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:33:48.490759",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.898934",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_import",
+      "description": "Missing pygame import",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.898934",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.911165",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.911165",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.912166",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.912166",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "name_error",
+      "description": "Undefined variable or function",
+      "code_context": "n = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))\n    \n    def eat_food(self):\n        # Если змея на еде, увеличиваем ее длину и генерируем новую еду\n        if self.food_position is not None:\n            self.segments.append(self.food_position)\n            self.generate_food()\n    \n    def update_snake(self, dt):\n        # Обновляем змею на основе времени прохождения и событий клавиатуры\n        self.update(dt)\n        self.handle_events(event)\n        self.eat_food()",
+      "timestamp": "2025-12-21T05:35:32.912166",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:37:12.374968",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:37:12.374968",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:37:12.375972",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T05:37:12.375972",
+      "user_feedback": "success",
+      "suggested_fix": null
+    }
+  ],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

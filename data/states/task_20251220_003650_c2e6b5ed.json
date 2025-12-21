@@ -1,0 +1,49 @@
+{
+  "task_id": "task_20251220_003650_c2e6b5ed",
+  "original_task": "Создать окно PyGame 800x600 с синим фоном",
+  "created_at": "2025-12-20T00:36:50.366822",
+  "updated_at": "2025-12-20T00:37:35.819125",
+  "task_status": "completed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание игрового окна:",
+    "Запуск музыки в фоновом режиме:",
+    "Обработка событий и игровой цикл:"
+  ],
+  "current_subtask_index": 2,
+  "current_subtask": null,
+  "code_chunks": [],
+  "generated_code": "import pygame\nfrom pygame import mixer\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Загрузка аудиофайла\nmixer.music.load('music.mp3')\n\n# Воспроизведение музыки в фоне\nmixer.music.play(-1)\n\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Обновление экрана\n    screen.fill(BLACK)\n    pygame.display.flip()\n\n    # Обработка таймера\n    clock.tick(FPS)",
+  "current_code": "import pygame\nfrom pygame import mixer\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Загрузка аудиофайла\nmixer.music.load('music.mp3')\n\n# Воспроизведение музыки в фоне\nmixer.music.play(-1)\n\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Обновление экрана\n    screen.fill(BLACK)\n    pygame.display.flip()\n\n    # Обработка таймера\n    clock.tick(FPS)",
+  "code_history": [
+    {
+      "timestamp": "2025-12-20T00:37:02.993640",
+      "subtask": "Инициализация PyGame и создание игрового окна:",
+      "previous_code": "",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-20T00:37:21.108071",
+      "subtask": "Запуск музыки в фоновом режиме:",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()",
+      "new_code": "import pygame\nfrom pygame import mixer\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Загрузка аудиофайла\nmixer.music.load('music.mp3')\n\n# Воспроизведение музыки в фоне\nmixer.music.play(-1)\n\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Обновление экрана\n    screen.fill(BLACK)\n    pygame.display.flip()\n\n    # Обработка таймера\n    clock.tick(FPS)",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-20T00:37:35.819116",
+      "subtask": "Обработка событий и игровой цикл:",
+      "previous_code": "import pygame\nfrom pygame import mixer\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Загрузка аудиофайла\nmixer.music.load('music.mp3')\n\n# Воспроизведение музыки в фоне\nmixer.music.play(-1)\n\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Обновление экрана\n    screen.fill(BLACK)\n    pygame.display.flip()\n\n    # Обработка таймера\n    clock.tick(FPS)",
+      "new_code": "import pygame\nfrom pygame import mixer\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Загрузка аудиофайла\nmixer.music.load('music.mp3')\n\n# Воспроизведение музыки в фоне\nmixer.music.play(-1)\n\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Обновление экрана\n    screen.fill(BLACK)\n    pygame.display.flip()\n\n    # Обработка таймера\n    clock.tick(FPS)",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

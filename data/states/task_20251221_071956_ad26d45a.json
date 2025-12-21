@@ -1,0 +1,259 @@
+{
+  "task_id": "task_20251221_071956_ad26d45a",
+  "original_task": "create a platformer",
+  "created_at": "2025-12-21T07:19:56.064528",
+  "updated_at": "2025-12-21T07:28:41.976713",
+  "task_status": "testing",
+  "validation_status": "failed",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 800x600",
+    "Создание класса/объекта для платформы с параметрами (цвет, размер, позиция)",
+    "Реализация управления платформой с помощью стрелок клавиатуры",
+    "Обработка границ экрана (чтобы платформа не выходила за пределы)",
+    "Создание класса/объекта для птиц с параметрами (цвет, размер, позиция, скорость)",
+    "Реализация управления птиц с помощью стрелок клавиатуры",
+    "Обработка столкновений между платформой и птицами"
+  ],
+  "current_subtask_index": 6,
+  "current_subtask": "Обработка столкновений между платформой и птицами",
+  "metadata": {
+    "generated_sprites": [
+      {
+        "path": "games\\sprites\\simple_character_20251221_072853.png",
+        "filename": "simple_character_20251221_072853.png",
+        "description": "игрок",
+        "type": "character",
+        "method": "simple_pillow"
+      },
+      {
+        "path": "games\\sprites\\simple_enemy_20251221_072856.png",
+        "filename": "simple_enemy_20251221_072856.png",
+        "description": "скелет",
+        "type": "enemy",
+        "method": "simple_pillow"
+      },
+      {
+        "path": "games\\sprites\\simple_item_20251221_072858.png",
+        "filename": "simple_item_20251221_072858.png",
+        "description": "меч",
+        "type": "item",
+        "method": "simple_pillow"
+      }
+    ]
+  },
+  "code_chunks": [],
+  "generated_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n# Initialize PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\n\n# ===== АВТОМАТИЧЕСКИ СГЕНЕРИРОВАННЫЕ СПРАЙТЫ =====\n\ntry:\n    character_sprite = pygame.image.load('games/sprites/simple_character_20251221_072853.png').convert_alpha()\n    print(f'Загружен спрайт: игрок...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта simple_character_20251221_072853.png: {e}')\n    character_sprite = None  # Fallback\n\ntry:\n    enemy_sprite = pygame.image.load('games/sprites/simple_enemy_20251221_072856.png').convert_alpha()\n    print(f'Загружен спрайт: скелет...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта simple_enemy_20251221_072856.png: {e}')\n    enemy_sprite = None  # Fallback\n\ntry:\n    item_sprite = pygame.image.load('games/sprites/simple_item_20251221_072858.png').convert_alpha()\n    print(f'Загружен спрайт: меч...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта simple_item_20251221_072858.png: {e}')\n    item_sprite = None  # Fallback\n\nclock = pygame.time.Clock()\n\n# Define the bird class\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.size, self.size))\n\n# Define the platform class\nclass Platform(object):\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n\n    def draw(self):\n        pygame.draw.rect(screen, (0, 255, 0), (self.x, self.y, self.width, self.height))\n\n# Initialize the bird and platform objects\nbird = Bird(320, 240, 10)\nplatform = Platform(320, 240, 100, 50)\n\n# Main game loop\nrunning = True\nwhile running:\n    # Handle events\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Handle keyboard input\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Check for collisions between bird and platform\n    if bird.rect.colliderect(platform.rect):\n        # If the bird is on top of the platform, make it jump\n        bird.y -= 5\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+  "current_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n# Initialize PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\n\n# ===== АВТОМАТИЧЕСКИ СГЕНЕРИРОВАННЫЕ СПРАЙТЫ =====\n\ntry:\n    character_sprite = pygame.image.load('games/sprites/simple_character_20251221_072853.png').convert_alpha()\n    print(f'Загружен спрайт: игрок...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта simple_character_20251221_072853.png: {e}')\n    character_sprite = None  # Fallback\n\ntry:\n    enemy_sprite = pygame.image.load('games/sprites/simple_enemy_20251221_072856.png').convert_alpha()\n    print(f'Загружен спрайт: скелет...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта simple_enemy_20251221_072856.png: {e}')\n    enemy_sprite = None  # Fallback\n\ntry:\n    item_sprite = pygame.image.load('games/sprites/simple_item_20251221_072858.png').convert_alpha()\n    print(f'Загружен спрайт: меч...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта simple_item_20251221_072858.png: {e}')\n    item_sprite = None  # Fallback\n\nclock = pygame.time.Clock()\n\n# Define the bird class\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.size, self.size))\n\n# Define the platform class\nclass Platform(object):\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n\n    def draw(self):\n        pygame.draw.rect(screen, (0, 255, 0), (self.x, self.y, self.width, self.height))\n\n# Initialize the bird and platform objects\nbird = Bird(320, 240, 10)\nplatform = Platform(320, 240, 100, 50)\n\n# Main game loop\nrunning = True\nwhile running:\n    # Handle events\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Handle keyboard input\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Check for collisions between bird and platform\n    if bird.rect.colliderect(platform.rect):\n        # If the bird is on top of the platform, make it jump\n        bird.y -= 5\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+  "code_history": [
+    {
+      "timestamp": "2025-12-21T07:20:21.294458",
+      "subtask": "Инициализация PyGame и создание окна 800x600",
+      "previous_code": "",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T07:20:38.455671",
+      "subtask": "Создание класса/объекта для платформы с параметрами (цвет, размер, позиция)",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\npygame.init()\n\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T07:25:53.429450",
+      "subtask": "Реализация управления платформой с помощью стрелок клавиатуры",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\npygame.init()\n\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))",
+      "new_code": "import pygame\n\n# Инициализация PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n# Создание класса Platform\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))\n\n# Создание экземпляра класса Platform\nplatform = Platform(320, 240, 100, 50)\n\n# Цикл игры\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление состояния платформы\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Отрисовка платформы\n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    # Управление частотой кадров\n    clock.tick(60)\n\n# Закрытие PyGame\npygame.quit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T07:26:28.750723",
+      "subtask": "Обработка границ экрана (чтобы платформа не выходила за пределы)",
+      "previous_code": "import pygame\n\n# Инициализация PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n# Создание класса Platform\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))\n\n# Создание экземпляра класса Platform\nplatform = Platform(320, 240, 100, 50)\n\n# Цикл игры\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление состояния платформы\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Отрисовка платформы\n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    # Управление частотой кадров\n    clock.tick(60)\n\n# Закрытие PyGame\npygame.quit()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n#                 Platform\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))\n\n#                            Platform\nplatform = Platform(320, 240, 100, 50)\n\n#          \nrunning = True\nwhile running:\n    #                  \n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    #                               \n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T07:26:55.495918",
+      "subtask": "Создание класса/объекта для птиц с параметрами (цвет, размер, позиция, скорость)",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n#               PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n#                 Platform\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))\n\n#                            Platform\nplatform = Platform(320, 240, 100, 50)\n\n#          \nrunning = True\nwhile running:\n    #                  \n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    #                               \n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "new_code": "import pygame\n\n#               PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n#                            Bird\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n#                            Platform\nplatform = Platform(320, 240, 100, 50)\n\n#          \nrunning = True\nwhile running:\n    #                  \n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    #                               \n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T07:28:02.854943",
+      "subtask": "Реализация управления птиц с помощью стрелок клавиатуры",
+      "previous_code": "import pygame\n\n#               PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n#                            Bird\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n#                            Platform\nplatform = Platform(320, 240, 100, 50)\n\n#          \nrunning = True\nwhile running:\n    #                  \n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    #                               \n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "new_code": "import pygame\n\n# Initialize PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n# Define the bird class\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n# Define the platform class\nclass Platform(object):\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n\n# Initialize the bird and platform objects\nbird = Bird(320, 240, 10)\nplatform = Platform(320, 240, 100, 50)\n\n# Main game loop\nrunning = True\nwhile running:\n    # Handle events\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Handle keyboard input\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T07:28:41.975710",
+      "subtask": "Обработка столкновений между платформой и птицами",
+      "previous_code": "import pygame\n\n# Initialize PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n# Define the bird class\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n# Define the platform class\nclass Platform(object):\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n\n# Initialize the bird and platform objects\nbird = Bird(320, 240, 10)\nplatform = Platform(320, 240, 100, 50)\n\n# Main game loop\nrunning = True\nwhile running:\n    # Handle events\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Handle keyboard input\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\n\n# Initialize PyGame\npygame.init()\nscreen = pygame.display.set_mode((640, 480))\nclock = pygame.time.Clock()\n\n# Define the bird class\nclass Bird(object):\n    def __init__(self, x, y, size, color=(255, 255, 255)):\n        self.x = x\n        self.y = y\n        self.size = size\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.size, self.size))\n\n# Define the platform class\nclass Platform(object):\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n\n    def draw(self):\n        pygame.draw.rect(screen, (0, 255, 0), (self.x, self.y, self.width, self.height))\n\n# Initialize the bird and platform objects\nbird = Bird(320, 240, 10)\nplatform = Platform(320, 240, 100, 50)\n\n# Main game loop\nrunning = True\nwhile running:\n    # Handle events\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Handle keyboard input\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Check for collisions between bird and platform\n    if bird.rect.colliderect(platform.rect):\n        # If the bird is on top of the platform, make it jump\n        bird.y -= 5\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T07:20:21.295460",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T07:20:21.295460",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T07:20:21.295460",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T07:20:21.295460",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\npygame.init()\n\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))",
+      "timestamp": "2025-12-21T07:20:38.455671",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\npygame.init()\n\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))",
+      "timestamp": "2025-12-21T07:20:38.455671",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\npygame.init()\n\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))",
+      "timestamp": "2025-12-21T07:20:38.455671",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\npygame.init()\n\nclass Platform(pygame.sprite.Sprite):\n    def __init__(self, x, y, width, height, color=(0, 0, 0)):\n        super().__init__()\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.color = color\n\n    def draw(self):\n        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))",
+      "timestamp": "2025-12-21T07:20:38.455671",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "nning:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление состояния платформы\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Отрисовка платформы\n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    # Управление частотой кадров\n    clock.tick(60)\n\n# Закрытие PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:25:53.431678",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "nning:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление состояния платформы\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Отрисовка платформы\n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    # Управление частотой кадров\n    clock.tick(60)\n\n# Закрытие PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:25:53.431678",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "black_screen_or_timeout",
+      "description": "Black screen or infinite loop",
+      "code_context": "nning:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление состояния платформы\n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    # Отрисовка платформы\n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    # Управление частотой кадров\n    clock.tick(60)\n\n# Закрытие PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:25:53.431678",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "sed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:26:28.751725",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "sed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:26:28.751725",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "sed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:26:55.496917",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "name_error",
+      "description": "Undefined variable or function",
+      "code_context": "sed()\n    if keys[pygame.K_LEFT]:\n        platform.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        platform.x += 5\n\n    #                                                            \n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    #                    \n    screen.fill((0, 0, 0))\n    platform.draw()\n    pygame.display.flip()\n\n    #                           \n    clock.tick(60)\n\n#          PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:26:55.496917",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "= 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:28:02.855943",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "attribute_error",
+      "description": "Object attribute error",
+      "code_context": "= 5\n\n    # Update the platform position and clamp it to the screen boundaries\n    platform.rect = pygame.Rect(platform.x, platform.y, platform.width, platform.height)\n    platform.rect.clamp_ip(screen.get_rect())\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:28:02.856945",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "ect.clamp_ip(screen.get_rect())\n\n    # Check for collisions between bird and platform\n    if bird.rect.colliderect(platform.rect):\n        # If the bird is on top of the platform, make it jump\n        bird.y -= 5\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:28:41.975710",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "attribute_error",
+      "description": "Object attribute error",
+      "code_context": "ect.clamp_ip(screen.get_rect())\n\n    # Check for collisions between bird and platform\n    if bird.rect.colliderect(platform.rect):\n        # If the bird is on top of the platform, make it jump\n        bird.y -= 5\n\n    # Fill the screen with black color\n    screen.fill((0, 0, 0))\n\n    # Draw the bird and platform\n    bird.draw()\n    platform.draw()\n\n    # Update the display\n    pygame.display.flip()\n\n    # Limit the game loop to 60 frames per second\n    clock.tick(60)\n\n# Quit PyGame\npygame.quit()",
+      "timestamp": "2025-12-21T07:28:41.976713",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    }
+  ],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

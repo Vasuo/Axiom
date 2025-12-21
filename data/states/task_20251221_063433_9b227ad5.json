@@ -1,0 +1,245 @@
+{
+  "task_id": "task_20251221_063433_9b227ad5",
+  "original_task": "Создай окно 800x600 с синим фоном и красным квадратом по центру",
+  "created_at": "2025-12-21T06:34:33.058798",
+  "updated_at": "2025-12-21T06:36:44.851892",
+  "task_status": "completed",
+  "validation_status": "passed",
+  "subtasks": [
+    "Импортировать модуль pygame",
+    "Инициализировать pygame с помощью pygame.init()",
+    "Задать размеры окна 800x600",
+    "Создать окно с pygame.display.set_mode((800, 600))",
+    "Установить заголовок окна pygame.display.set_caption(\"Циклический квадрат\")",
+    "Определить параметры квадрата: цвет (красный), размер (100x100 пикселей), начальная позиция (400x300 пикселей)",
+    "Создать класс/объект для квадрата с методами для отрисовки и обновления позиции"
+  ],
+  "current_subtask_index": 6,
+  "current_subtask": "Создать класс/объект для квадрата с методами для отрисовки и обновления позиции",
+  "metadata": {
+    "generated_sprites": [
+      {
+        "path": "C:\\Users\\Vasko\\Desktop\\Axiom 0.7.4\\games\\sprites\\sd_character_20251221_063740.png",
+        "filename": "sd_character_20251221_063740.png",
+        "description": "-*- coding: utf-8 -*-",
+        "type": "character",
+        "method": "stable_diffusion"
+      }
+    ]
+  },
+  "code_chunks": [],
+  "generated_code": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]\n\n\n# ===== АВТОМАТИЧЕСКИ СГЕНЕРИРОВАННЫЕ СПРАЙТЫ =====\n\ntry:\n    character_sprite = pygame.image.load('C:/Users/Vasko/Desktop/Axiom 0.7.4/games/sprites/sd_character_20251221_063740.png').convert_alpha()\n    print(f'Загружен спрайт: -*- coding: utf-8 -*...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта sd_character_20251221_063740.png: {e}')\n    character_sprite = None  # Fallback\n",
+  "current_code": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]\n\n\n# ===== АВТОМАТИЧЕСКИ СГЕНЕРИРОВАННЫЕ СПРАЙТЫ =====\n\ntry:\n    character_sprite = pygame.image.load('C:/Users/Vasko/Desktop/Axiom 0.7.4/games/sprites/sd_character_20251221_063740.png').convert_alpha()\n    print(f'Загружен спрайт: -*- coding: utf-8 -*...')\nexcept Exception as e:\n    print(f'Ошибка загрузки спрайта sd_character_20251221_063740.png: {e}')\n    character_sprite = None  # Fallback\n",
+  "code_history": [
+    {
+      "timestamp": "2025-12-21T06:34:55.564563",
+      "subtask": "Импортировать модуль pygame",
+      "previous_code": "",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T06:35:03.564353",
+      "subtask": "Инициализировать pygame с помощью pygame.init()",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T06:35:12.715702",
+      "subtask": "Задать размеры окна 800x600",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T06:35:23.756338",
+      "subtask": "Создать окно с pygame.display.set_mode((800, 600))",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T06:35:31.884618",
+      "subtask": "Установить заголовок окна pygame.display.set_caption(\"Циклический квадрат\")",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T06:36:23.494125",
+      "subtask": "Определить параметры квадрата: цвет (красный), размер (100x100 пикселей), начальная позиция (400x300 пикселей)",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()",
+      "new_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0) # <--                                   \nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()\n\n#                                  :        (100x100         ),                   (400x300         )\nsquare_size = 100 # <--                              100x100         \nsquare_pos = [400, 300] # <--                                         (400, 300)\n\n#                      /                             pygame.draw.rect()\ndef draw_square(surface, color, rect):\n    pygame.draw.rect(surface, color, rect)\n\n#                                                         \nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    #                                                          \n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        square_pos[0] -= 5\n    elif keys[pygame.K_RIGHT]:\n        square_pos[0] += 5\n    elif keys[pygame.K_UP]:\n        square_pos[1] -= 5\n    elif keys[pygame.K_DOWN]:\n        square_pos[1] += 5\n\n    #                                (                                  )\n    if square_pos[0] <= 0:\n        square_pos[0] = 0\n    elif square_pos[0] + square_size >= WIDTH:\n        square_pos[0] = WIDTH - square_size\n    elif square_pos[1] <= 0:\n        square_pos[1] = 0\n    elif square_pos[1] + square_size >= HEIGHT:\n        square_pos[1] = HEIGHT - square_size\n\n    #                                     \n    screen.fill(BLACK)\n    draw_square(screen, RED, pygame.Rect(square_pos[0], square_pos[1], square_size, square_size))\n    pygame.display.update()\n    clock.tick(FPS)",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T06:36:44.849884",
+      "subtask": "Создать класс/объект для квадрата с методами для отрисовки и обновления позиции",
+      "previous_code": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0) # <--                                   \nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()\n\n#                                  :        (100x100         ),                   (400x300         )\nsquare_size = 100 # <--                              100x100         \nsquare_pos = [400, 300] # <--                                         (400, 300)\n\n#                      /                             pygame.draw.rect()\ndef draw_square(surface, color, rect):\n    pygame.draw.rect(surface, color, rect)\n\n#                                                         \nwhile True:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            pygame.quit()\n            sys.exit()\n\n    #                                                          \n    keys = pygame.key.get_pressed()\n    if keys[pygame.K_LEFT]:\n        square_pos[0] -= 5\n    elif keys[pygame.K_RIGHT]:\n        square_pos[0] += 5\n    elif keys[pygame.K_UP]:\n        square_pos[1] -= 5\n    elif keys[pygame.K_DOWN]:\n        square_pos[1] += 5\n\n    #                                (                                  )\n    if square_pos[0] <= 0:\n        square_pos[0] = 0\n    elif square_pos[0] + square_size >= WIDTH:\n        square_pos[0] = WIDTH - square_size\n    elif square_pos[1] <= 0:\n        square_pos[1] = 0\n    elif square_pos[1] + square_size >= HEIGHT:\n        square_pos[1] = HEIGHT - square_size\n\n    #                                     \n    screen.fill(BLACK)\n    draw_square(screen, RED, pygame.Rect(square_pos[0], square_pos[1], square_size, square_size))\n    pygame.display.update()\n    clock.tick(FPS)",
+      "new_code": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:34:55.565565",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:34:55.565565",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:34:55.566568",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:34:55.566568",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:03.564353",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:03.565355",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:12.715702",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:12.715702",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:23.757312",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"        \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:23.757312",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:31.884618",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:31.884618",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "# -*- coding: utf-8 -*-\nimport pygame\nimport sys\n\n#               PyGame\npygame.init()\n\n#               \nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n#      \nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n#              \nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption(\"                   \")\nclock = pygame.time.Clock()",
+      "timestamp": "2025-12-21T06:35:31.885620",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "non_ascii_chars",
+      "description": "Code contains non-ASCII characters",
+      "code_context": "if square_pos[0] <= 0:\n        square_pos[0] = 0\n    elif square_pos[0] + square_size >= WIDTH:\n        square_pos[0] = WIDTH - square_size\n    elif square_pos[1] <= 0:\n        square_pos[1] = 0\n    elif square_pos[1] + square_size >= HEIGHT:\n        square_pos[1] = HEIGHT - square_size\n\n    #                                     \n    screen.fill(BLACK)\n    draw_square(screen, RED, pygame.Rect(square_pos[0], square_pos[1], square_size, square_size))\n    pygame.display.update()\n    clock.tick(FPS)",
+      "timestamp": "2025-12-21T06:36:23.494125",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "encoding_error",
+      "description": "Missing encoding declaration",
+      "code_context": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]",
+      "timestamp": "2025-12-21T06:36:44.849884",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_import",
+      "description": "Missing pygame import",
+      "code_context": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]",
+      "timestamp": "2025-12-21T06:36:44.849884",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Missing pygame.init()",
+      "code_context": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]",
+      "timestamp": "2025-12-21T06:36:44.850890",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "No main game loop found",
+      "code_context": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]",
+      "timestamp": "2025-12-21T06:36:44.850890",
+      "user_feedback": "success",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "No screen update found",
+      "code_context": "# -*- coding: utf-8 -*-\nclass Square:\n    def __init__(self, x, y, size):\n        self.x = x\n        self.y = y\n        self.size = size\n\n    def draw(self, surface):\n        pygame.draw.rect(surface, RED, pygame.Rect(self.x, self.y, self.size, self.size))\n\n    def update_position(self, speed):\n        self.x += speed[0]\n        self.y += speed[1]",
+      "timestamp": "2025-12-21T06:36:44.851892",
+      "user_feedback": "success",
+      "suggested_fix": null
+    }
+  ],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

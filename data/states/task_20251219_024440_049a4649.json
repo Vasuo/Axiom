@@ -1,0 +1,50 @@
+{
+  "task_id": "task_20251219_024440_049a4649",
+  "original_task": "Создай окно PyGame размером 800x600 с синим фоном",
+  "created_at": "2025-12-19T02:44:40.395043",
+  "updated_at": "2025-12-19T02:45:19.431668",
+  "task_status": "failed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 800x600:",
+    "Рисование синего фона в основном цикле:",
+    "Инициализация PyGame и создание окна 800x600 с синим фоном."
+  ],
+  "current_subtask_index": 2,
+  "current_subtask": null,
+  "code_chunks": [
+    {
+      "subtask": "Инициализация PyGame и создание окна 800x600:",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()\n\n# Завершение PyGame\npygame.quit()",
+      "timestamp": "2025-12-19T02:45:07.624741",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Рисование синего фона в основном цикле:",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Рисование синего фона в основном цикле\n    screen.fill((0, 0, 255))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение PyGame\npygame.quit()",
+      "timestamp": "2025-12-19T02:45:15.179792",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Инициализация PyGame и создание окна 800x600 с синим фоном.",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()",
+      "timestamp": "2025-12-19T02:45:19.431655",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    }
+  ],
+  "generated_code": "import pygame\n# Инициализация PyGame\npygame.init()\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n# Обновление экрана\npygame.display.flip()\n# Завершение PyGame\npygame.quit()\n# Инициализация PyGame\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n# Обновление экрана\npygame.display.flip()\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    # Рисование синего фона в основном цикле\n    screen.fill((0, 0, 255))\n    # Обновление экрана\n    pygame.display.flip()\n# Завершение PyGame\npygame.quit()\n# Инициализация PyGame\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n# Обновление экрана\npygame.display.flip()",
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

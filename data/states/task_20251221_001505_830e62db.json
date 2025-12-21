@@ -1,0 +1,49 @@
+{
+  "task_id": "task_20251221_001505_830e62db",
+  "original_task": "Создай красный квадрат, который движется по экрану",
+  "created_at": "2025-12-21T00:15:05.820306",
+  "updated_at": "2025-12-21T00:16:46.278748",
+  "task_status": "completed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание игрового окна",
+    "Создание игровой объекта и настройка управления",
+    "Реализация игровой цикла с обработкой событий"
+  ],
+  "current_subtask_index": 2,
+  "current_subtask": null,
+  "code_chunks": [],
+  "generated_code": "import pygame\nfrom pygame.locals import *\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна и игрового поля (сетка 20x20 клеток)\nscreen = pygame.display.set_mode((640, 480))\nbackground = pygame.Surface(screen.get_size())\nbackground = background.convert()\nbackground.fill((255, 255, 255))\n\n# Создание змейки как списка координат сегментов\nsnake = []\nfor i in range(10):\n    snake.append((i * 10, 10))\n\n# Задать начальное направление движения (вправо)\ndirection = RIGHT\n\n# Генерировать еду в случайной позиции\nfood_x = random.randint(0, screen.get_width() - 20)\nfood_y = random.randint(0, screen.get_height() - 20)\n\n# Основная логика:\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Движение змейки в текущем направлении\n    head = snake[0]\n    new_head = (head[0] + direction[0], head[1] + direction[1])\n    if not background.get_at((new_head[0], new_head[1])):\n        break\n    snake.insert(0, new_head)\n    snake.pop()\n\n    # Если голова на еде: увеличивать змейку, генерировать новую еду\n    if head == (food_x, food_y):\n        food_x = random.randint(0, screen.get_width() - 20)\n        food_y = random.randint(0, screen.get_height() - 20)\n        snake.append((food_x, food_y))\n\n    # Отрисовка экрана\n    background.fill((255, 255, 255))\n    for i in range(len(snake)):\n        pygame.draw.rect(background, (0, 0, 0), (snake[i][0], snake[i][1], 10, 10))\n    pygame.display.flip()",
+  "current_code": "import pygame\nfrom pygame.locals import *\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна и игрового поля (сетка 20x20 клеток)\nscreen = pygame.display.set_mode((640, 480))\nbackground = pygame.Surface(screen.get_size())\nbackground = background.convert()\nbackground.fill((255, 255, 255))\n\n# Создание змейки как списка координат сегментов\nsnake = []\nfor i in range(10):\n    snake.append((i * 10, 10))\n\n# Задать начальное направление движения (вправо)\ndirection = RIGHT\n\n# Генерировать еду в случайной позиции\nfood_x = random.randint(0, screen.get_width() - 20)\nfood_y = random.randint(0, screen.get_height() - 20)\n\n# Основная логика:\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Движение змейки в текущем направлении\n    head = snake[0]\n    new_head = (head[0] + direction[0], head[1] + direction[1])\n    if not background.get_at((new_head[0], new_head[1])):\n        break\n    snake.insert(0, new_head)\n    snake.pop()\n\n    # Если голова на еде: увеличивать змейку, генерировать новую еду\n    if head == (food_x, food_y):\n        food_x = random.randint(0, screen.get_width() - 20)\n        food_y = random.randint(0, screen.get_height() - 20)\n        snake.append((food_x, food_y))\n\n    # Отрисовка экрана\n    background.fill((255, 255, 255))\n    for i in range(len(snake)):\n        pygame.draw.rect(background, (0, 0, 0), (snake[i][0], snake[i][1], 10, 10))\n    pygame.display.flip()",
+  "code_history": [
+    {
+      "timestamp": "2025-12-21T00:15:54.522362",
+      "subtask": "Инициализация PyGame и создание игрового окна",
+      "previous_code": "",
+      "new_code": "import pygame\nimport sys",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:16:18.822352",
+      "subtask": "Создание игровой объекта и настройка управления",
+      "previous_code": "import pygame\nimport sys",
+      "new_code": "import pygame\nfrom pygame.locals import *\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна и игрового поля (сетка 20x20 клеток)\nscreen = pygame.display.set_mode((640, 480))\nbackground = pygame.Surface(screen.get_size())\nbackground = background.convert()\nbackground.fill((255, 255, 255))\n\n# Создание змейки как списка координат сегментов\nsnake = []\nfor i in range(10):\n    snake.append((i * 10, 10))\n\n# Задать начальное направление движения (вправо)\ndirection = RIGHT\n\n# Генерировать еду в случайной позиции\nfood_x = random.randint(0, screen.get_width() - 20)\nfood_y = random.randint(0, screen.get_height() - 20)\n\n# Основная логика:\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Движение змейки в текущем направлении\n    head = snake[0]\n    new_head = (head[0] + direction[0], head[1] + direction[1])\n    if not background.get_at((new_head[0], new_head[1])):\n        break\n    snake.insert(0, new_head)\n    snake.pop()\n\n    # Если голова на еде: увеличивать змейку, генерировать новую еду\n    if head == (food_x, food_y):\n        food_x = random.randint(0, screen.get_width() - 20)\n        food_y = random.randint(0, screen.get_height() - 20)\n        snake.append((food_x, food_y))\n\n    # Отрисовка экрана\n    background.fill((255, 255, 255))\n    for i in range(len(snake)):\n        pygame.draw.rect(background, (0, 0, 0), (snake[i][0], snake[i][1], 10, 10))\n    pygame.display.flip()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:16:46.278739",
+      "subtask": "Реализация игровой цикла с обработкой событий",
+      "previous_code": "import pygame\nfrom pygame.locals import *\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна и игрового поля (сетка 20x20 клеток)\nscreen = pygame.display.set_mode((640, 480))\nbackground = pygame.Surface(screen.get_size())\nbackground = background.convert()\nbackground.fill((255, 255, 255))\n\n# Создание змейки как списка координат сегментов\nsnake = []\nfor i in range(10):\n    snake.append((i * 10, 10))\n\n# Задать начальное направление движения (вправо)\ndirection = RIGHT\n\n# Генерировать еду в случайной позиции\nfood_x = random.randint(0, screen.get_width() - 20)\nfood_y = random.randint(0, screen.get_height() - 20)\n\n# Основная логика:\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Движение змейки в текущем направлении\n    head = snake[0]\n    new_head = (head[0] + direction[0], head[1] + direction[1])\n    if not background.get_at((new_head[0], new_head[1])):\n        break\n    snake.insert(0, new_head)\n    snake.pop()\n\n    # Если голова на еде: увеличивать змейку, генерировать новую еду\n    if head == (food_x, food_y):\n        food_x = random.randint(0, screen.get_width() - 20)\n        food_y = random.randint(0, screen.get_height() - 20)\n        snake.append((food_x, food_y))\n\n    # Отрисовка экрана\n    background.fill((255, 255, 255))\n    for i in range(len(snake)):\n        pygame.draw.rect(background, (0, 0, 0), (snake[i][0], snake[i][1], 10, 10))\n    pygame.display.flip()",
+      "new_code": "import pygame\nfrom pygame.locals import *\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна и игрового поля (сетка 20x20 клеток)\nscreen = pygame.display.set_mode((640, 480))\nbackground = pygame.Surface(screen.get_size())\nbackground = background.convert()\nbackground.fill((255, 255, 255))\n\n# Создание змейки как списка координат сегментов\nsnake = []\nfor i in range(10):\n    snake.append((i * 10, 10))\n\n# Задать начальное направление движения (вправо)\ndirection = RIGHT\n\n# Генерировать еду в случайной позиции\nfood_x = random.randint(0, screen.get_width() - 20)\nfood_y = random.randint(0, screen.get_height() - 20)\n\n# Основная логика:\nwhile True:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == QUIT:\n            pygame.quit()\n            sys.exit()\n\n    # Движение змейки в текущем направлении\n    head = snake[0]\n    new_head = (head[0] + direction[0], head[1] + direction[1])\n    if not background.get_at((new_head[0], new_head[1])):\n        break\n    snake.insert(0, new_head)\n    snake.pop()\n\n    # Если голова на еде: увеличивать змейку, генерировать новую еду\n    if head == (food_x, food_y):\n        food_x = random.randint(0, screen.get_width() - 20)\n        food_y = random.randint(0, screen.get_height() - 20)\n        snake.append((food_x, food_y))\n\n    # Отрисовка экрана\n    background.fill((255, 255, 255))\n    for i in range(len(snake)):\n        pygame.draw.rect(background, (0, 0, 0), (snake[i][0], snake[i][1], 10, 10))\n    pygame.display.flip()",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

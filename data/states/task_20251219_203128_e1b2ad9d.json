@@ -1,0 +1,50 @@
+{
+  "task_id": "task_20251219_203128_e1b2ad9d",
+  "original_task": "Создай окно PyGame размером 800x600 с синим фоном",
+  "created_at": "2025-12-19T20:31:28.421516",
+  "updated_at": "2025-12-19T20:31:56.011812",
+  "task_status": "completed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание игрового окна",
+    "Настройка основного игровой цикла с обработкой событий выхода",
+    "Рисование синего фона и обновление экрана"
+  ],
+  "current_subtask_index": 2,
+  "current_subtask": null,
+  "code_chunks": [
+    {
+      "subtask": "Инициализация PyGame и создание игрового окна",
+      "code": "import pygame\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    screen.fill((0, 0, 255))\n    pygame.display.flip()\npygame.quit()",
+      "timestamp": "2025-12-19T20:31:40.123733",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Настройка основного игровой цикла с обработкой событий выхода",
+      "code": "import pygame\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    if not running:\n        break\n    screen.fill((0, 0, 255))\n    pygame.display.flip()\npygame.quit()\nВ этом коде мы добавили обработку событий выхода из игры и проверку на то, что игра не закрыта. Если событие выхода происходит, то переменная `running` становится равной `False`, что приводит к выходу из основного цикла игры.",
+      "timestamp": "2025-12-19T20:31:48.466656",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Рисование синего фона и обновление экрана",
+      "code": "import pygame\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    screen.fill((0, 0, 255))\n    pygame.display.flip()\npygame.quit()\nВ этом коде мы добавили рисование синего фона и обновление экрана в основном цикле игры. Для этого мы использовали функцию `screen.fill((0, 0, 255))` для заполнения всего экрана синим цветом, а затем вызываем функцию `pygame.display.flip()` для обновления экрана.",
+      "timestamp": "2025-12-19T20:31:56.011798",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    }
+  ],
+  "generated_code": "import pygame\npygame.init()\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    screen.fill((0, 0, 255))\n    pygame.display.flip()\npygame.quit()\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    if not running:\n        break\n    screen.fill((0, 0, 255))\n    pygame.display.flip()\npygame.quit()\nВ этом коде мы добавили обработку событий выхода из игры и проверку на то, что игра не закрыта. Если событие выхода происходит, то переменная `running` становится равной `False`, что приводит к выходу из основного цикла игры.\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    screen.fill((0, 0, 255))\n    pygame.display.flip()\npygame.quit()\nВ этом коде мы добавили рисование синего фона и обновление экрана в основном цикле игры. Для этого мы использовали функцию `screen.fill((0, 0, 255))` для заполнения всего экрана синим цветом, а затем вызываем функцию `pygame.display.flip()` для обновления экрана.",
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

@@ -1,0 +1,41 @@
+{
+  "task_id": "task_20251219_021401_5c39f0a1",
+  "original_task": "Создай окно PyGame размером 800x600 с синим фоном",
+  "created_at": "2025-12-19T02:14:01.757300",
+  "updated_at": "2025-12-19T02:14:19.409205",
+  "task_status": "failed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 800x600:",
+    "Рисование синего фона в основном цикле:"
+  ],
+  "current_subtask_index": 1,
+  "current_subtask": null,
+  "code_chunks": [
+    {
+      "subtask": "Инициализация PyGame и создание окна 800x600:",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()\n\n# Завершение PyGame\npygame.quit()",
+      "timestamp": "2025-12-19T02:14:13.456486",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Рисование синего фона в основном цикле:",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Заполнение фона синим цветом\n    screen.fill((0, 0, 255))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение PyGame\npygame.quit()",
+      "timestamp": "2025-12-19T02:14:19.409191",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    }
+  ],
+  "generated_code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()\n\n# Завершение PyGame\npygame.quit()\n\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Заполнение фона синим цветом\n    screen.fill((0, 0, 255))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение PyGame\npygame.quit()",
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

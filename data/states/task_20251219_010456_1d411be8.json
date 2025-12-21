@@ -1,0 +1,53 @@
+{
+  "task_id": "task_20251219_010456_1d411be8",
+  "original_task": "Создай окно PyGame размером 800x600 с синим фоном",
+  "created_at": "2025-12-19T01:04:56.530283",
+  "updated_at": "2025-12-19T01:05:34.009216",
+  "task_status": "failed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame, создание окна и настройка основного игрового цикла:",
+    "Импортируй PyGame: `import pygame`",
+    "Инициализируй PyGame: `pygame.init()``"
+  ],
+  "current_subtask_index": 2,
+  "current_subtask": null,
+  "code_chunks": [
+    {
+      "subtask": "Инициализация PyGame, создание окна и настройка основного игрового цикла:",
+      "code": "```python\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна\nscreen = pygame.display.set_mode((800, 600))\n\n# Настройка основного игрового цикла\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление экрана\n    screen.fill((0, 0, 255))\n\n    # Отрисовка объектов на экране\n    pygame.display.flip()\n\n    # Установка ограничения для частоты кадров\n    clock.tick(60)\n```\nВ этом коде мы инициализируем PyGame, создаем окно размером 800x600 и настраиваем основной игровой цикл. Внутри цикла мы обрабатываем события, обновляем экран и отрисовываем объекты на нем. Мы также устанавливаем ограничение для частоты кадров, чтобы играла на 60 ка",
+      "timestamp": "2025-12-19T01:05:22.942375",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Импортируй PyGame: `import pygame`",
+      "code": "```python\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна\nscreen = pygame.display.set_mode((800, 600))\n\n# Настройка основного игрового цикла\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление экрана\n    screen.fill((0, 0, 255))\n\n    # Отрисовка объектов на экране\n    pygame.display.flip()\n\n    # Установка ограничения для частоты кадров\n    clock.tick(60)\n```",
+      "timestamp": "2025-12-19T01:05:28.486863",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Инициализируй PyGame: `pygame.init()``",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна\nscreen = pygame.display.set_mode((800, 600))\n\n# Настройка основного игрового цикла\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление экрана\n    screen.fill((0, 0, 255))\n\n    # Отрисовка объектов на экране\n    pygame.display.flip()\n\n    # Установка ограничения для частоты кадров\n    clock.tick(60)",
+      "timestamp": "2025-12-19T01:05:34.009201",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    }
+  ],
+  "generated_code": "```python\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна\nscreen = pygame.display.set_mode((800, 600))\n\n# Настройка основного игрового цикла\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление экрана\n    screen.fill((0, 0, 255))\n\n    # Отрисовка объектов на экране\n    pygame.display.flip()\n\n    # Установка ограничения для частоты кадров\n    clock.tick(60)\n```\nВ этом коде мы инициализируем PyGame, создаем окно размером 800x600 и настраиваем основной игровой цикл. Внутри цикла мы обрабатываем события, обновляем экран и отрисовываем объекты на нем. Мы также устанавливаем ограничение для частоты кадров, чтобы играла на 60 ка\n\n```python\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна\nscreen = pygame.display.set_mode((800, 600))\n\n# Настройка основного игрового цикла\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление экрана\n    screen.fill((0, 0, 255))\n\n    # Отрисовка объектов на экране\n    pygame.display.flip()\n\n    # Установка ограничения для частоты кадров\n    clock.tick(60)\n```\n\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна\nscreen = pygame.display.set_mode((800, 600))\n\n# Настройка основного игрового цикла\nclock = pygame.time.Clock()\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление экрана\n    screen.fill((0, 0, 255))\n\n    # Отрисовка объектов на экране\n    pygame.display.flip()\n\n    # Установка ограничения для частоты кадров\n    clock.tick(60)",
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini",
+    "codellama:7b-instruct",
+    "codellama:7b-instruct",
+    "codellama:7b-instruct"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

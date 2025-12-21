@@ -1,0 +1,65 @@
+[
+  {
+    "id": "template_window_basic",
+    "text": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n        elif event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_ESCAPE:\n                running = False\n    \n    # Очистка экрана\n    screen.fill(BLUE)\n    \n    # Здесь будет игровая логика и отрисовка\n    \n    # Обновление экрана\n    pygame.display.flip()\n    \n    # Ограничение FPS\n    clock.tick(FPS)\n\n# Завершение работы\npygame.quit()\nsys.exit()",
+    "metadata": {
+      "type": "window_template",
+      "tags": ["окно", "игровой цикл", "базовый"],
+      "complexity": "простой"
+    }
+  },
+  {
+    "id": "template_player_movement",
+    "text": "import pygame\n\nclass Player:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n        self.width = 50\n        self.height = 50\n        self.color = (255, 0, 0)  # Красный\n        self.speed = 5\n        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)\n    \n    def update(self, keys):\n        # Движение по горизонтали\n        if keys[pygame.K_LEFT] or keys[pygame.K_a]:\n            self.x -= self.speed\n        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:\n            self.x += self.speed\n        \n        # Движение по вертикали\n        if keys[pygame.K_UP] or keys[pygame.K_w]:\n            self.y -= self.speed\n        if keys[pygame.K_DOWN] or keys[pygame.K_s]:\n            self.y += self.speed\n        \n        # Обновление rect для коллизий\n        self.rect.x = self.x\n        self.rect.y = self.y\n    \n    def draw(self, screen):\n        pygame.draw.rect(screen, self.color, self.rect)\n\n# Использование в игровом цикле:\n# player = Player(400, 300)\n# keys = pygame.key.get_pressed()\n# player.update(keys)\n# player.draw(screen)",
+    "metadata": {
+      "type": "player_template",
+      "tags": ["игрок", "управление", "класс"],
+      "complexity": "простой"
+    }
+  },
+  {
+    "id": "template_snake_basic",
+    "text": "import pygame\nimport random\n\nclass Snake:\n    def __init__(self, cell_size=20):\n        self.cell_size = cell_size\n        self.body = [(5, 5), (4, 5), (3, 5)]  # [голова, ...хвост]\n        self.direction = (1, 0)  # Начальное направление: вправо\n        self.grow = False\n    \n    def move(self):\n        head_x, head_y = self.body[0]\n        dx, dy = self.direction\n        new_head = (head_x + dx, head_y + dy)\n        \n        # Добавляем новую голову\n        self.body.insert(0, new_head)\n        \n        # Если не нужно расти - удаляем хвост\n        if not self.grow:\n            self.body.pop()\n        else:\n            self.grow = False\n    \n    def change_direction(self, new_direction):\n        # Не позволяем развернуться на 180 градусов\n        dx, dy = new_direction\n        current_dx, current_dy = self.direction\n        \n        if (dx, dy) != (-current_dx, -current_dy):\n            self.direction = (dx, dy)\n    \n    def draw(self, screen):\n        for segment in self.body:\n            x, y = segment\n            rect = pygame.Rect(\n                x * self.cell_size, \n                y * self.cell_size,\n                self.cell_size, \n                self.cell_size\n            )\n            pygame.draw.rect(screen, (0, 255, 0), rect)  # Зеленый\n            pygame.draw.rect(screen, (0, 200, 0), rect, 2)  # Граница",
+    "metadata": {
+      "type": "game_template",
+      "tags": ["змейка", "логика", "класс"],
+      "complexity": "средний"
+    }
+  },
+  {
+    "id": "template_collision_detection",
+    "text": "# Обнаружение столкновений в PyGame\n\n# 1. Столкновение прямоугольник-прямоугольник\nrect1 = pygame.Rect(100, 100, 50, 50)\nrect2 = pygame.Rect(120, 120, 50, 50)\nif rect1.colliderect(rect2):\n    print(\"Прямоугольники столкнулись!\")\n\n# 2. Столкновение точка-прямоугольник\npoint = (150, 150)\nif rect1.collidepoint(point):\n    print(\"Точка внутри прямоугольника\")\n\n# 3. Столкновение круг-круг (своя реализация)\ndef circles_collide(circle1, circle2):\n    \"\"\"circle = (x, y, radius)\"\"\"\n    x1, y1, r1 = circle1\n    x2, y2, r2 = circle2\n    distance = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5\n    return distance < (r1 + r2)\n\n# 4. Столкновение с границами экрана\nWIDTH, HEIGHT = 800, 600\nif player.x < 0:\n    player.x = 0\nif player.x + player.width > WIDTH:\n    player.x = WIDTH - player.width\nif player.y < 0:\n    player.y = 0\nif player.y + player.height > HEIGHT:\n    player.y = HEIGHT - player.height",
+    "metadata": {
+      "type": "utility_template",
+      "tags": ["столкновения", "физика", "утилиты"],
+      "complexity": "простой"
+    }
+  },
+  {
+    "id": "template_game_menu",
+    "text": "import pygame\n\nclass Button:\n    def __init__(self, x, y, width, height, text, color=(100, 100, 255), hover_color=(150, 150, 255)):\n        self.rect = pygame.Rect(x, y, width, height)\n        self.text = text\n        self.color = color\n        self.hover_color = hover_color\n        self.current_color = color\n        self.font = pygame.font.Font(None, 36)\n    \n    def draw(self, screen):\n        # Рисуем кнопку\n        pygame.draw.rect(screen, self.current_color, self.rect, border_radius=10)\n        pygame.draw.rect(screen, (50, 50, 50), self.rect, 3, border_radius=10)\n        \n        # Рисуем текст\n        text_surface = self.font.render(self.text, True, (255, 255, 255))\n        text_rect = text_surface.get_rect(center=self.rect.center)\n        screen.blit(text_surface, text_rect)\n    \n    def is_hovered(self, mouse_pos):\n        return self.rect.collidepoint(mouse_pos)\n    \n    def update(self, mouse_pos):\n        if self.is_hovered(mouse_pos):\n            self.current_color = self.hover_color\n        else:\n            self.current_color = self.color\n    \n    def is_clicked(self, mouse_pos, mouse_clicked):\n        return self.is_hovered(mouse_pos) and mouse_clicked\n\n# Использование меню:\n# buttons = [\n#     Button(300, 200, 200, 50, \"Начать игру\"),\n#     Button(300, 300, 200, 50, \"Настройки\"),\n#     Button(300, 400, 200, 50, \"Выход\")\n# ]\n# В игровом цикле:\n# mouse_pos = pygame.mouse.get_pos()\n# mouse_clicked = pygame.mouse.get_pressed()[0]\n# for button in buttons:\n#     button.update(mouse_pos)\n#     button.draw(screen)\n#     if button.is_clicked(mouse_pos, mouse_clicked):\n#         print(f\"Кнопка '{button.text}' нажата!\")",
+    "metadata": {
+      "type": "ui_template",
+      "tags": ["меню", "кнопки", "интерфейс"],
+      "complexity": "средний"
+    }
+  },
+  {
+    "id": "template_particle_system",
+    "text": "import pygame\nimport random\nimport math\n\nclass Particle:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n        self.size = random.randint(2, 6)\n        self.color = (\n            random.randint(200, 255),\n            random.randint(100, 200),\n            random.randint(50, 100)\n        )\n        self.speed_x = random.uniform(-2, 2)\n        self.speed_y = random.uniform(-3, -1)\n        self.gravity = 0.1\n        self.lifetime = random.randint(30, 60)\n        self.age = 0\n    \n    def update(self):\n        self.x += self.speed_x\n        self.y += self.speed_y\n        self.speed_y += self.gravity\n        self.age += 1\n        \n        # Уменьшение размера с возрастом\n        self.size = max(0, self.size * (1 - self.age / self.lifetime))\n    \n    def draw(self, screen):\n        if self.size > 0:\n            pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), int(self.size))\n    \n    def is_dead(self):\n        return self.age >= self.lifetime\n\nclass ParticleSystem:\n    def __init__(self):\n        self.particles = []\n    \n    def emit(self, x, y, count=10):\n        for _ in range(count):\n            self.particles.append(Particle(x, y))\n    \n    def update(self):\n        for particle in self.particles[:]:\n            particle.update()\n            if particle.is_dead():\n                self.particles.remove(particle)\n    \n    def draw(self, screen):\n        for particle in self.particles:\n            particle.draw(screen)\n\n# Использование:\n# ps = ParticleSystem()\n# При клике: ps.emit(mouse_x, mouse_y, 20)\n# В игровом цикле: ps.update(); ps.draw(screen)",
+    "metadata": {
+      "type": "effect_template",
+      "tags": ["частицы", "эффекты", "графика"],
+      "complexity": "продвинутый"
+    }
+  },
+  {
+    "id": "template_simple_physics",
+    "text": "# Простая физика для платформера\n\nclass PhysicsEntity:\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.vel_x = 0\n        self.vel_y = 0\n        self.acc_x = 0\n        self.acc_y = 0\n        self.on_ground = False\n        \n        # Физические константы\n        self.gravity = 0.5\n        self.friction = 0.8\n        self.jump_strength = -12\n        self.max_speed = 6\n    \n    def update(self, platforms):\n        # Применяем гравитацию\n        self.vel_y += self.gravity\n        \n        # Применяем ускорение\n        self.vel_x += self.acc_x\n        self.vel_y += self.acc_y\n        \n        # Ограничиваем максимальную скорость\n        self.vel_x = max(-self.max_speed, min(self.max_speed, self.vel_x))\n        \n        # Применяем трение на земле\n        if self.on_ground:\n            self.vel_x *= self.friction\n        \n        # Сохраняем старую позицию для коллизий\n        old_x, old_y = self.x, self.y\n        \n        # Обновляем позицию\n        self.x += self.vel_x\n        self.y += self.vel_y\n        \n        # Сбрасываем флаг земли\n        self.on_ground = False\n        \n        # Проверяем коллизии с платформами\n        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)\n        for platform in platforms:\n            if self.rect.colliderect(platform):\n                # Определяем сторону столкновения\n                if old_y + self.height <= platform.top:\n                    # Столкновение сверху\n                    self.y = platform.top - self.height\n                    self.vel_y = 0\n                    self.on_ground = True\n                elif old_y >= platform.bottom:\n                    # Столкновение снизу\n                    self.y = platform.bottom\n                    self.vel_y = 0\n                elif old_x + self.width <= platform.left:\n                    # Столкновение слева\n                    self.x = platform.left - self.width\n                    self.vel_x = 0\n                elif old_x >= platform.right:\n                    # Столкновение справа\n                    self.x = platform.right\n                    self.vel_x = 0\n    \n    def jump(self):\n        if self.on_ground:\n            self.vel_y = self.jump_strength\n            self.on_ground = False\n            return True\n        return False",
+    "metadata": {
+      "type": "physics_template",
+      "tags": ["физика", "платформер", "гравитация"],
+      "complexity": "средний"
+    }
+  }
+]

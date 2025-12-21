@@ -1,0 +1,49 @@
+{
+  "task_id": "task_20251220_004050_b0d5d0d9",
+  "original_task": "Создать окно PyGame 800x600 с синим фоном",
+  "created_at": "2025-12-20T00:40:50.491529",
+  "updated_at": "2025-12-20T00:42:23.725553",
+  "task_status": "completed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Определение класса игрока с атрибутами и методами для управления его позицией и поведения.",
+    "Реализация игровой логики, включая цикл игры, обработку событий мыши и клавиатуры, а также обновление состояний игрока и игрового объекта.",
+    "Реализация функций для сохранения и загрузки состояний игры."
+  ],
+  "current_subtask_index": 2,
+  "current_subtask": null,
+  "code_chunks": [],
+  "generated_code": "import pickle\n\n# ...\n\ndef save_game(filename):\n    with open(filename, 'wb') as file:\n        pickle.dump(game_state, file)\n\n# ...\n\nsave_game('game_state.dat')",
+  "current_code": "import pickle\n\n# ...\n\ndef save_game(filename):\n    with open(filename, 'wb') as file:\n        pickle.dump(game_state, file)\n\n# ...\n\nsave_game('game_state.dat')",
+  "code_history": [
+    {
+      "timestamp": "2025-12-20T00:41:42.150953",
+      "subtask": "Определение класса игрока с атрибутами и методами для управления его позицией и поведения.",
+      "previous_code": "",
+      "new_code": "class Player:\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.vel_x = 0\n        self.vel_y = 0\n        self.acc_x = 0\n        self.acc_y = 0\n    \n    def update(self):\n        # Обновляем положение игрока\n        self.x += self.vel_x\n        self.y += self.vel_y\n        \n        # Определяем ускорение в зависимости от нажатых клавиш\n        if keys[pygame.K_LEFT]:\n            self.acc_x = -10\n        elif keys[pygame.K_RIGHT]:\n            self.acc_x = 10\n        else:\n            self.acc_x = 0\n        \n        # Обновляем скорость игрока\n        self.vel_x += self.acc_x\n    \n    def draw(self):\n        # Рисование игрока на сцене\n        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-20T00:42:08.163527",
+      "subtask": "Реализация игровой логики, включая цикл игры, обработку событий мыши и клавиатуры, а также обновление состояний игрока и игрового объекта.",
+      "previous_code": "class Player:\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.vel_x = 0\n        self.vel_y = 0\n        self.acc_x = 0\n        self.acc_y = 0\n    \n    def update(self):\n        # Обновляем положение игрока\n        self.x += self.vel_x\n        self.y += self.vel_y\n        \n        # Определяем ускорение в зависимости от нажатых клавиш\n        if keys[pygame.K_LEFT]:\n            self.acc_x = -10\n        elif keys[pygame.K_RIGHT]:\n            self.acc_x = 10\n        else:\n            self.acc_x = 0\n        \n        # Обновляем скорость игрока\n        self.vel_x += self.acc_x\n    \n    def draw(self):\n        # Рисование игрока на сцене\n        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))",
+      "new_code": "class Player:\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.vel_x = 0\n        self.vel_y = 0\n        self.acc_x = 0\n        self.acc_y = 0\n    \n    def update(self):\n        # Обновляем положение игрока\n        self.x += self.vel_x\n        self.y += self.vel_y\n        \n        # Определяем ускорение в зависимости от нажатых клавиш\n        if keys[pygame.K_LEFT]:\n            self.acc_x = -10\n        elif keys[pygame.K_RIGHT]:\n            self.acc_x = 10\n        else:\n            self.acc_x = 0\n        \n        # Обновляем скорость игрока\n        self.vel_x += self.acc_x",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-20T00:42:23.725544",
+      "subtask": "Реализация функций для сохранения и загрузки состояний игры.",
+      "previous_code": "class Player:\n    def __init__(self, x, y, width, height):\n        self.x = x\n        self.y = y\n        self.width = width\n        self.height = height\n        self.vel_x = 0\n        self.vel_y = 0\n        self.acc_x = 0\n        self.acc_y = 0\n    \n    def update(self):\n        # Обновляем положение игрока\n        self.x += self.vel_x\n        self.y += self.vel_y\n        \n        # Определяем ускорение в зависимости от нажатых клавиш\n        if keys[pygame.K_LEFT]:\n            self.acc_x = -10\n        elif keys[pygame.K_RIGHT]:\n            self.acc_x = 10\n        else:\n            self.acc_x = 0\n        \n        # Обновляем скорость игрока\n        self.vel_x += self.acc_x",
+      "new_code": "import pickle\n\n# ...\n\ndef save_game(filename):\n    with open(filename, 'wb') as file:\n        pickle.dump(game_state, file)\n\n# ...\n\nsave_game('game_state.dat')",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

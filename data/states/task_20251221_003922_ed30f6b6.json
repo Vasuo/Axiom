@@ -1,0 +1,178 @@
+{
+  "task_id": "task_20251221_003922_ed30f6b6",
+  "original_task": "Создай красный квадрат, управляемый стрелками",
+  "created_at": "2025-12-21T00:39:22.317016",
+  "updated_at": "2025-12-21T00:48:56.999431",
+  "task_status": "testing",
+  "validation_status": "failed",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 800x600",
+    "Создание класса `RedSquare` с параметрами (цвет, размер, позиции)",
+    "Реализация управления квадратом с помощью стрелок клавиатуры",
+    "Обработка границ экрана (чтобы квадрат не выходил за пределы)",
+    "Настройка игрового цикла и отображения квадрата",
+    "Ограничение скорости квадрата, чтобы он не мог быстро переместиться",
+    "Добавление возможности прыжков для квадрата"
+  ],
+  "current_subtask_index": 6,
+  "current_subtask": "Добавление возможности прыжков для квадрата",
+  "code_chunks": [],
+  "generated_code": "import pygame\n\nclass JumpSquare(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.jump_speed = 10\n        self.gravity = 1\n    \n    def update(self):\n        # Управление направлением движения\n        if pygame.key.get_pressed()[pygame.K_LEFT]:\n            self.x -= self.vel_x\n        elif pygame.key.get_pressed()[pygame.K_RIGHT]:\n            self.x += self.vel_x\n        \n        # Управление скоростью объекта\n        self.vel_y += self.gravity\n        if self.rect.bottom > screen_rect.bottom:\n            self.vel_y = 0\n    \n    def draw(self, surface):\n        pygame.draw.rect(surface, (255, 0, 0), (self.x, self.y, self.width, self.height))\n\npygame.init()\nscreen_width = 800\nscreen_height = 600\nscreen = pygame.display.set_mode((screen_width, screen_height))\nclock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+  "current_code": "import pygame\n\nclass JumpSquare(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.jump_speed = 10\n        self.gravity = 1\n    \n    def update(self):\n        # Управление направлением движения\n        if pygame.key.get_pressed()[pygame.K_LEFT]:\n            self.x -= self.vel_x\n        elif pygame.key.get_pressed()[pygame.K_RIGHT]:\n            self.x += self.vel_x\n        \n        # Управление скоростью объекта\n        self.vel_y += self.gravity\n        if self.rect.bottom > screen_rect.bottom:\n            self.vel_y = 0\n    \n    def draw(self, surface):\n        pygame.draw.rect(surface, (255, 0, 0), (self.x, self.y, self.width, self.height))\n\npygame.init()\nscreen_width = 800\nscreen_height = 600\nscreen = pygame.display.set_mode((screen_width, screen_height))\nclock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+  "code_history": [
+    {
+      "timestamp": "2025-12-21T00:44:41.845099",
+      "subtask": "Инициализация PyGame и создание окна 800x600",
+      "previous_code": "",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:45:23.330736",
+      "subtask": "Создание класса `RedSquare` с параметрами (цвет, размер, позиции)",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nBLUE = (0, 120, 255)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\n\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:46:09.170569",
+      "subtask": "Реализация управления квадратом с помощью стрелок клавиатуры",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\n\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\n\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:46:47.834771",
+      "subtask": "Обработка границ экрана (чтобы квадрат не выходил за пределы)",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\n\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Определение области на экране, в которой находится квадрат\nrect = pygame.Rect(50, 50, 100, 100)\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:47:29.026156",
+      "subtask": "Настройка игрового цикла и отображения квадрата",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Определение области на экране, в которой находится квадрат\nrect = pygame.Rect(50, 50, 100, 100)\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Определение области на экране, в которой находится квадрат\nrect = pygame.Rect(50, 50, 100, 100)\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:48:20.784652",
+      "subtask": "Ограничение скорости квадрата, чтобы он не мог быстро переместиться",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Определение области на экране, в которой находится квадрат\nrect = pygame.Rect(50, 50, 100, 100)\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "new_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Определение области на экране, в которой находится квадрат\nrect = pygame.Rect(50, 50, 100, 100)\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n    \n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Обновление скорости объекта в зависимости от нажатых клавиш\n    update_speed(red_square)\n    \n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "model_used": "codellama:7b-instruct"
+    },
+    {
+      "timestamp": "2025-12-21T00:48:56.986095",
+      "subtask": "Добавление возможности прыжков для квадрата",
+      "previous_code": "import pygame\nimport sys\n\n# Инициализация PyGame\npygame.init()\n\n# Настройки окна\nWIDTH = 800\nHEIGHT = 600\nFPS = 60\n\n# Цвета\nBLACK = (0, 0, 0)\nWHITE = (255, 255, 255)\nRED = (255, 0, 0)\n\n# Создание окна и настройка его параметров\nscreen = pygame.display.set_mode((WIDTH, HEIGHT))\npygame.display.set_caption(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Определение области на экране, в которой находится квадрат\nrect = pygame.Rect(50, 50, 100, 100)\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n    \n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Обновление скорости объекта в зависимости от нажатых клавиш\n    update_speed(red_square)\n    \n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "new_code": "import pygame\n\nclass JumpSquare(PhysicsEntity):\n    def __init__(self, x, y, width, height):\n        super().__init__(x, y, width, height)\n        self.jump_speed = 10\n        self.gravity = 1\n    \n    def update(self):\n        # Управление направлением движения\n        if pygame.key.get_pressed()[pygame.K_LEFT]:\n            self.x -= self.vel_x\n        elif pygame.key.get_pressed()[pygame.K_RIGHT]:\n            self.x += self.vel_x\n        \n        # Управление скоростью объекта\n        self.vel_y += self.gravity\n        if self.rect.bottom > screen_rect.bottom:\n            self.vel_y = 0\n    \n    def draw(self, surface):\n        pygame.draw.rect(surface, (255, 0, 0), (self.x, self.y, self.width, self.height))\n\npygame.init()\nscreen_width = 800\nscreen_height = 600\nscreen = pygame.display.set_mode((screen_width, screen_height))\nclock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+      "model_used": "codellama:7b-instruct"
+    }
+  ],
+  "errors_detected": [
+    {
+      "type": "missing_game_loop",
+      "description": "Нет основного игрового цикла",
+      "code_context": "n(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:44:41.845260",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "Нет обновления экрана",
+      "code_context": "n(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:44:41.845387",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "n(\"Моя игра\")\nclock = pygame.time.Clock()\n\n# Основной игровой цикл\nrunning = True\nwhile running:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:44:41.845482",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "g:\n    # Обработка событий\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    # Обновление сцены\n    clock.tick(FPS)\n    \n    # Отрисовка фона\n    screen.fill(BLACK)\n\n    # Создание нового объекта RedSquare\n    red_square = RedSquare((50, 50), (100, 100))\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (50, 50, 100, 100))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:45:23.331157",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "e = RedSquare((50, 50), (100, 100))\n\n    # Определение нажатия клавиш\n    keys = pygame.key.get_pressed()\n    \n    # Управление направлением движения квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:46:09.184979",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:46:47.835295",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "квадрата\n    if keys[pygame.K_LEFT]:\n        red_square.x -= 5\n    elif keys[pygame.K_RIGHT]:\n        red_square.x += 5\n\n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:47:29.026548",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "y.get_pressed()\n    \n    # Обновление скорости объекта в зависимости от нажатых клавиш\n    update_speed(red_square)\n    \n    # Определение пересечения границ экрана с квадратом\n    if rect.colliderect(red_square):\n        print(\"Квадрат выходит за пределы экрана!\")\n    \n    # Отрисовка квадрата\n    pygame.draw.rect(screen, RED, (red_square.x, red_square.y, red_square.width, red_square.height))\n\n    # Обновление экрана\n    pygame.display.flip()\n\n# Завершение работы PyGame\npygame.quit()\nsys.exit()",
+      "timestamp": "2025-12-21T00:48:20.785311",
+      "user_feedback": "skip",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_init",
+      "description": "Отсутствует pygame.init()",
+      "code_context": "lock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+      "timestamp": "2025-12-21T00:48:56.997954",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_game_loop",
+      "description": "Нет основного игрового цикла",
+      "code_context": "lock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+      "timestamp": "2025-12-21T00:48:56.998394",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "missing_display_update",
+      "description": "Нет обновления экрана",
+      "code_context": "lock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+      "timestamp": "2025-12-21T00:48:56.998919",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    },
+    {
+      "type": "syntax_error",
+      "description": "Синтаксическая ошибка или ошибка отступов",
+      "code_context": "lock = pygame.time.Clock()\n\nrunning = True\n\n# Создание квадрата\nx, y = 50, 50\nwidth, height = 100, 100\nsquare = JumpSquare(x, y, width, height)\n\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n    \n    keys = pygame.key.get_pressed()\n    \n    # Обновление квадрата\n    square.update()\n    \n    # Отрисовка квадрата\n    screen.fill((0, 0, 0))\n    square.draw(screen)\n    \n    pygame.display.flip()\n    clock.tick(60)\n\npygame.quit()",
+      "timestamp": "2025-12-21T00:48:56.999423",
+      "user_feedback": "auto_fix",
+      "suggested_fix": null
+    }
+  ],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

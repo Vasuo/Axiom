@@ -1,0 +1,41 @@
+{
+  "task_id": "task_20251219_022239_d3e03658",
+  "original_task": "Создай окно PyGame размером 800x600 с синим фоном",
+  "created_at": "2025-12-19T02:22:39.487826",
+  "updated_at": "2025-12-19T02:23:00.196456",
+  "task_status": "failed",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 800x600:",
+    "Рисование синего фона в основном цикле:"
+  ],
+  "current_subtask_index": 1,
+  "current_subtask": null,
+  "code_chunks": [
+    {
+      "subtask": "Инициализация PyGame и создание окна 800x600:",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()",
+      "timestamp": "2025-12-19T02:22:50.841257",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    },
+    {
+      "subtask": "Рисование синего фона в основном цикле:",
+      "code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Заполнение фона синим цветом\n    screen.fill((0, 0, 255))\n\n    # Обновление экрана\n    pygame.display.flip()\n```\nВ этом коде мы используем `pygame.display.set_mode()` для создания окна игры и `pygame.display.set_caption()` для задания заголовка окна. Затем мы обрабатываем события, такие как нажатие кнопки \"Выход\" (ESC) или закрытие окна, с помощью цикла `while`. Внутри этого цикла мы также используем `pygame.display.flip()` для обновления экрана и рисования синего фона.",
+      "timestamp": "2025-12-19T02:23:00.196431",
+      "model_used": "codellama:7b-instruct",
+      "rag_context": null,
+      "errors": []
+    }
+  ],
+  "generated_code": "import pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n# Заполнение фона синим цветом\nscreen.fill((0, 0, 255))\n\n# Обновление экрана\npygame.display.flip()\n\nimport pygame\n\n# Инициализация PyGame\npygame.init()\n\n# Создание окна 800x600\nscreen = pygame.display.set_mode((800, 600))\npygame.display.set_caption('Game Window')\n\n# Обработка событий\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n\n    # Заполнение фона синим цветом\n    screen.fill((0, 0, 255))\n\n    # Обновление экрана\n    pygame.display.flip()\n```\nВ этом коде мы используем `pygame.display.set_mode()` для создания окна игры и `pygame.display.set_caption()` для задания заголовка окна. Затем мы обрабатываем события, такие как нажатие кнопки \"Выход\" (ESC) или закрытие окна, с помощью цикла `while`. Внутри этого цикла мы также используем `pygame.display.flip()` для обновления экрана и рисования синего фона.",
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

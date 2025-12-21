@@ -1,0 +1,22 @@
+{
+  "task_id": "task_20251221_064945_0fa6ad74",
+  "original_task": "Создай упрощенную змейку",
+  "created_at": "2025-12-21T06:49:45.514069",
+  "updated_at": "2025-12-21T06:49:45.514069",
+  "task_status": "planning",
+  "validation_status": "not_started",
+  "subtasks": [],
+  "current_subtask_index": 0,
+  "current_subtask": null,
+  "metadata": {},
+  "code_chunks": [],
+  "generated_code": "",
+  "current_code": "",
+  "code_history": [],
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}

@@ -1,0 +1,32 @@
+{
+  "task_id": "task_20251221_054809_e738a821",
+  "original_task": "Создай упрощенную змейку",
+  "created_at": "2025-12-21T05:48:09.424471",
+  "updated_at": "2025-12-21T05:48:09.424471",
+  "task_status": "coding",
+  "validation_status": "not_started",
+  "subtasks": [
+    "Инициализация PyGame и создание окна 400x600",
+    "Создание игрового поля (сетка 20x20 клеток)",
+    "Реализовать змейку как список координат сегментов",
+    "Координаты сегмента: x, y",
+    "Задать начальное направление движения (вправо)",
+    "Генерация еду в случайной позиции",
+    "Основная логика игры:"
+  ],
+  "current_subtask_index": 0,
+  "current_subtask": "Инициализация PyGame и создание окна 400x600",
+  "metadata": {},
+  "code_chunks": [],
+  "generated_code": "",
+  "current_code": "",
+  "code_history": [],
+  "errors_detected": [],
+  "user_feedback_history": [],
+  "models_used": [
+    "phi3:mini"
+  ],
+  "rag_searches": 0,
+  "total_executions": 0,
+  "successful_executions": 0
+}
